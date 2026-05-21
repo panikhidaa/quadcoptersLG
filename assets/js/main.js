@@ -83,7 +83,7 @@
                 <div class="cart-empty">
                     <h3>Корзина пуста</h3>
                     <p>Добавьте товары из каталога, чтобы оформить заказ.</p>
-                    <a href="catalog/" class="btn btn--outline" style="margin-top: 14px;">Перейти в каталог</a>
+                    <a href="/catalog/" class="btn btn--outline" style="margin-top: 14px;">Перейти в каталог</a>
                 </div>`;
             summary.innerHTML = "";
             return;
@@ -124,8 +124,8 @@
             <div class="cart-summary__row"><span>Сумма</span><span>${formatPrice(subtotal)}</span></div>
             <div class="cart-summary__row"><span>Доставка по Донецку / Луганску</span><span>Рассчитывается</span></div>
             <div class="cart-summary__row total"><span>Итого</span><span>${formatPrice(subtotal)}</span></div>
-            <a href="checkout.html" class="btn btn--primary btn--block btn--lg" style="margin-top: 18px;">Оформить заказ</a>
-            <a href="catalog/" class="btn btn--outline btn--block" style="margin-top: 10px;">Продолжить покупки</a>
+            <a href="/checkout.html" class="btn btn--primary btn--block btn--lg" style="margin-top: 18px;">Оформить заказ</a>
+            <a href="/catalog/" class="btn btn--outline btn--block" style="margin-top: 10px;">Продолжить покупки</a>
         `;
     };
 
@@ -170,7 +170,7 @@
         const summaryBox = form.querySelector("[data-checkout-summary]");
         if (summaryBox) {
             if (cart.length === 0) {
-                summaryBox.innerHTML = `<p>Ваша корзина пуста. <a href="catalog/">Вернуться в каталог</a>.</p>`;
+                summaryBox.innerHTML = `<p>Ваша корзина пуста. <a href="/catalog/">Вернуться в каталог</a>.</p>`;
             } else {
                 const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
                 summaryBox.innerHTML = `
@@ -226,12 +226,12 @@
 
     /* ------------------ Активный пункт навигации ------------------ */
     const setActiveNav = () => {
-        const normalize = (url) =>
-            url.replace(/index\.html$/, "").replace(/\/+$/, "/").toLowerCase();
-        const current = normalize(location.href.split("#")[0].split("?")[0]);
+        const path = location.pathname.replace(/\/index\.html$/, "/").toLowerCase();
         document.querySelectorAll(".nav a").forEach(a => {
-            const href = normalize(a.href.split("#")[0].split("?")[0]);
-            if (href === current) a.classList.add("active");
+            const href = a.getAttribute("href")?.toLowerCase() || "";
+            if (href === path || (href !== "/" && path.startsWith(href))) {
+                a.classList.add("active");
+            }
         });
     };
 

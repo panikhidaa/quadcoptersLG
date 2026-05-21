@@ -15,6 +15,9 @@ Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content&yclid&gclid
 User-agent: YandexImages
 Allow: /assets/img/
 
+User-agent: YandexMarket
+Allow: /
+
 User-agent: Googlebot
 Allow: /
 Disallow: /cart.html
